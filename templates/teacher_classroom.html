@@ -1,0 +1,93 @@
+{% extends 'main-layout.html' %} {% block title %} My Classrooms {% endblock title %}
+
+<!--
+{% if user.is_authenticated %} Hello {{user.username }}, You are a {{user.is_staff}} {% endif %}
+-->
+
+<!--main content-->
+{% block content %}
+
+<form action="{% url 'create/classroom' %}" method="post">
+    {% csrf_token %}
+    <!-- show classes -->
+    <div class="row">
+        <div class="col-md-9">
+
+            <h2>My Classrooms</h2>
+            {% for m in messages %}
+            <div id="alert-msg" class="alert alert-primary alert-dismissible fade show" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <strong>{{m}}</strong>
+            </div>
+            {% endfor %}
+
+
+        </div>
+        <div class="col col-md-3">
+
+            <button type="button" class="btn btn-primary" style="color: #fff; background: #ff834f" data-toggle="modal" data-target="#myModal">
+        <i class="fa fa-plus-square" aria-hidden="true"></i> Create a new class
+        </button>
+        </div>
+    </div>
+    <br><br>
+    <div class="container">
+        <div class="row">
+
+            {% for c in cls %}
+            <div class="col-sm-6">
+                <div class="card" style="padding:5px;margin-top: 2%;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{c.cls_name}}</h5>
+                        <p class="card-text">{{c.cls_desc}}</p>
+                        <a href="#" class="btn btn-primary" style="color: #fff; background: #ff834f"><i class="fa fa-external-link" aria-hidden="true"></i> Open Classroom</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <!-- show current classes end -->
+
+
+    <!-- create a new class-->
+
+
+    <!--end of modal for creating a new class-->
+
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <p style="margin-left:30%;font-family:Arial, Helvetica, sans-serif;
+font-size: 1.5rem;color:#ff834f;" class="text-center"><strong>Create a New Classroom</strong></p>
+
+                    <hr>
+                </div>
+                <div class="modal-body">
+                    <label class="text-bold" for="teacherid"><strong>Teacher ID:</strong></label>
+                    <input id="teacherid" type="number" name="teacher_id" value="{{user.id}}" class="form-control" readonly>
+
+                    <label class="text-bold" for="clsName"><strong>Classroom Name:</strong></label>
+                    <input id="clsName" type="text" name="cls_name" class="form-control" placeholder="Classroom name" required autofocus>
+
+                    <label class="text-bold" for="cls_desc"><strong>Classroom Description:</strong></label>
+                    <input id="cls_desc" type="text" name="cls_desc" class="form-control" placeholder="Classroom description" required>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">Create</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+</div>
+
+
+{% endblock content %}

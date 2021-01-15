@@ -1,0 +1,76 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>EduPhile - {% block title %} {% endblock title %}
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" type="image/png" href="{% static 'images/title.PNG' %}" />
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'css/main-layout-style.css' %}">
+</head>
+
+<body>
+
+    <div class="wrapper d-flex align-items-stretch">
+        <nav id="sidebar">
+            <div class="p-4 pt-5">
+                <a href="#" class="img logo rounded-circle mb-3" style="background-image: url(https://www.pavilionweb.com/wp-content/uploads/2017/03/man-300x300.png); border: 1px solid black">
+                </a>
+                <p style="text-align:center">Jumshaid Khan</p>
+
+                <ul class="list-unstyled components mb-5">
+                    <li class="active">
+                        <a href="#">
+                            <i class="fa fa-id-card-o" aria-hidden="true"></i> &nbsp; Classrooms</a>
+                    </li>
+                    <li>
+                        <a href="#"> <i class="fa fa-clone" aria-hidden="true"></i> &nbsp; Exams</a>
+                    </li>
+                    <li>
+                        <a href="#"> <i class="fa fa-line-chart" aria-hidden="true"></i> &nbsp; Results</a>
+                    </li>
+                    <li>
+                        <a href="#"> <i class="fa fa-thumb-tack" aria-hidden="true"></i> &nbsp;&nbsp; Attendance</a>
+                    </li>
+                    <li>
+                        <a href="#"> <i class="fa fa-user-circle-o" aria-hidden="true"></i> &nbsp; Manage Profile</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'logout' %}"><i class="fa fa-sign-out" aria-hidden="true"></i> &nbsp; Logout</a>
+                    </li>
+                </ul>
+
+
+            </div>
+        </nav>
+
+
+        <div id="content" class="p-4 p-md-5">
+
+            <nav class="navbar navbar-light bg-light">
+
+                <button type="button" id="sidebarCollapse" class="btn btn-primary" style="color: #fff; background: #ff834f;">
+              <i class="fa fa-bars"></i>
+            </button> <b>EduPhile - Advanced Online Classroom</b>
+            </nav>
+
+            {% block content %}
+            <!-- Page contentnt  -->
+            {% endblock content %}
+
+        </div>
+
+    </div>
+
+    <script src="{% static 'js/jquery2.min.js' %}"></script>
+    <script src="{% static 'js/popper2.js' %}"></script>
+    <script src="{% static 'js/bootstrap2.min.js' %}"></script>
+    <script src="{% static 'js/main2.js' %}"></script>
+</body>
+
+</html>
