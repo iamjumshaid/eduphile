@@ -12,6 +12,8 @@
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{% static 'css/main-layout-style.css' %}">
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 </head>
 
 <body>
@@ -25,7 +27,7 @@
 
                 <ul class="list-unstyled components mb-5">
                     <li class="active">
-                        <a href="#">
+                        <a href="{% url 'classrooms' %}">
                             <i class="fa fa-id-card-o" aria-hidden="true"></i> &nbsp; Classrooms</a>
                     </li>
                     <li>
@@ -66,11 +68,20 @@
         </div>
 
     </div>
-
     <script src="{% static 'js/jquery2.min.js' %}"></script>
     <script src="{% static 'js/popper2.js' %}"></script>
     <script src="{% static 'js/bootstrap2.min.js' %}"></script>
     <script src="{% static 'js/main2.js' %}"></script>
+    <script src="//cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#myTable').DataTable();
+        });
+
+        function myfunc(clsId) {
+            document.getElementById('classid').value = clsId;
+        }
+    </script>
 </body>
 
 </html>
