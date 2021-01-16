@@ -83,6 +83,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.html5.min.js"></script>
 
+    <script>
+        $(document).ready(function() {
+            $('li.active').removeClass('active');
+            $('a[href=" ' + location.pathname + ' "]').closest('li').addClass('active');
+        });
+    </script>
     <script type=" text/javascript ">
         $(document).ready(function() {
             $('#myTable').DataTable({
@@ -99,10 +105,12 @@
         function myfunc(clsId) {
             document.getElementById('classid').value = clsId;
         }
-        $(document).ready(function() {
-            $('li.active').removeClass('active');
-            $('a[href=" ' + location.pathname + ' "]').closest('li').addClass('active');
-        });
+
+        function showStudentExam(stdName, stdAns, stdMarks) {
+            document.getElementById('stdAns').value = stdAns;
+            document.getElementById('agmarks').value = stdMarks;
+            document.getElementById('stdName').value = stdName;
+        }
     </script>
 </body>
 

@@ -92,7 +92,8 @@
                     {{record.8}}
                 </td>
                 <td class="text-center">
-                    <button type="button" onclick="myfunc('{{c.id}}')" style="margin-left:20px;background-color: Transparent;background-repeat:no-repeat;border: none;cursor:pointer;overflow: hidden;outline:none;" data-toggle="modal" data-target="#myModal"><i class="fa fa-external-link" aria-hidden="true"></i></button>
+                    <button type="button" onclick="showStudentExam('{{record.5}}','{{record.0}}','{{record.6}}')" style="color:#ff834f;margin-left:20px;background-color: Transparent;background-repeat:no-repeat;border: none;cursor:pointer;overflow: hidden;outline:none;" data-toggle="modal"
+                        data-target="#myModal"><i class="fa fa-external-link" aria-hidden="true"></i></button>
                 </td>
             </tr>
 
@@ -111,23 +112,32 @@
 
             <div class="modal-header">
                 <p style="margin-left:30%;font-family:Arial, Helvetica, sans-serif;
-font-size: 1.5rem;color:#ff834f;" class="text-center"><strong>Create a New Classroom</strong></p>
+font-size: 1.5rem;color:#ff834f;" class="text-center"><strong>Student exam</strong></p>
 
                 <hr>
             </div>
             <div class="modal-body">
-                <label class="text-bold" for="teacherid"><strong>Teacher ID:</strong></label>
-                <input id="teacherid" type="number" name="teacher_id" value="{{user.id}}" class="form-control" readonly>
+                <label class="text-bold" for="question"><strong>Question:</strong></label>
+                <input id="question" type="textarea" name="question" value="What is the role of a prototype program in problem solving?" class="form-control" readonly>
 
-                <label class="text-bold" for="clsName"><strong>Classroom Name:</strong></label>
-                <input id="clsName" type="text" name="cls_name" class="form-control" placeholder="Classroom name" required autofocus>
+                <label class="text-bold" for="tAns"><strong>Teacher answer:</strong></label>
+                <input id="tAns" type="textarea" name="tAns" class="form-control" value="To simulate the behaviour of portions of the desired software product." readonly>
 
-                <label class="text-bold" for="cls_desc"><strong>Classroom Description:</strong></label>
-                <input id="cls_desc" type="text" name="cls_desc" class="form-control" placeholder="Classroom description" required>
+                <label class="text-bold" for="stdName"><strong>Student name:</strong></label>
+                <input id="stdName" type="text" name="stdName" class="form-control" readonly>
+
+                <label class="text-bold" for="stdAns"><strong>Student answer:</strong></label>
+                <input id="stdAns" type="textarea" name="stdAns" class="form-control" readonly>
+
+                <label class="text-bold" for="tmarks"><strong>Total marks:</strong></label>
+                <input id="tmarks" type="number" name="tmarks" class="form-control" value="5" readonly>
+
+                <label class="text-bold" for="agmarks"><strong>Auto-graded marks:</strong></label>
+                <input id="agmarks" type="number" name="tmarks" class="form-control">
 
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn btn-success">Create</button>
+                <button type="button" class="btn btn-success" data-dismiss="modal">Modify Marks</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
             </div>
         </div>
