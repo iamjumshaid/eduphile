@@ -11,7 +11,6 @@ def classrooms(request):
         cls_id = request.POST['cls_id']
         std_email = request.POST['std_email']
         student = User.objects.filter(email = std_email)
-        #print(teacher_id,student[0].id)
         std = Student()
         std.class_id = cls_id
         std.student_id = student[0].id

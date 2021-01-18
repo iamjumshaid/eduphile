@@ -44,7 +44,7 @@
     </div>
 
     <div class="col-md-3 text-left" style="margin-top:1%">
-        <b>Average Marks</b>: 30
+        <b>Average Marks</b>: 3.77 Marks
     </div>
     <div class="col-md-9" style="margin-top:1%">
         <b>Exam Date</b>: {{e.exam_created}}
@@ -144,4 +144,27 @@ font-size: 1.5rem;color:#ff834f;" class="text-center"><strong>Student exam</stro
     </div>
 </div>
 </div>
-{% endblock content %}
+{% endblock content %} {% block script_files %}
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.5/js/dataTables.buttons.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.html5.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#myTable').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                'copyHtml5',
+                'excelHtml5',
+                'csvHtml5',
+                'pdfHtml5'
+            ]
+        });
+    });
+</script>
+{% endblock script_files %}

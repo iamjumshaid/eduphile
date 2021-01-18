@@ -74,6 +74,9 @@
     <script src="{% static 'js/bootstrap2.min.js' %}"></script>
     <script src="{% static 'js/main2.js' %}"></script>
 
+
+    <!--
+
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.6.5/js/dataTables.buttons.min.js"></script>
@@ -82,14 +85,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.html5.min.js"></script>
+<script>
 
-    <script>
-        $(document).ready(function() {
-            $('li.active').removeClass('active');
-            $('a[href=" ' + location.pathname + ' "]').closest('li').addClass('active');
-        });
-    </script>
-    <script type=" text/javascript ">
         $(document).ready(function() {
             $('#myTable').DataTable({
                 dom: 'Bfrtip',
@@ -101,7 +98,27 @@
                 ]
             });
         });
+    
+</script>
 
+
+-->
+    {% block script_files %}
+    <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#myTable').DataTable();
+        });
+    </script>
+    {% endblock script_files %}
+
+    <script>
+        $(document).ready(function() {
+            $('li.active').removeClass('active');
+            $('a[href=" ' + location.pathname + ' "]').closest('li').addClass('active');
+        });
+    </script>
+    <script type=" text/javascript ">
         function myfunc(clsId) {
             document.getElementById('classid').value = clsId;
         }
