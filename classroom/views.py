@@ -19,7 +19,7 @@ def classrooms(request):
         return redirect('classrooms')
     else:    
         who_is = request.user.is_staff
-        if who_is == True: 
+        if who_is: 
             classes = Classroom.objects.filter(teacher_id = request.user.id)
             return render(request, 'teacher_classroom.html', {'cls': classes})
         else:

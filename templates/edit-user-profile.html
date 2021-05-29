@@ -1,0 +1,90 @@
+<style>
+    form {
+        border: 3px solid #f1f1f1;
+    }
+    
+    input[type=text],
+    input[type=password] {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+    }
+    
+    .button_save_changes {
+        background-color: #db6333;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+    }
+    
+    .button_save_changes:hover {
+        opacity: 0.8;
+    }
+    
+    .container {
+        padding: 16px;
+    }
+    
+    span.psw {
+        float: right;
+        padding-top: 16px;
+    }
+    /* Change styles for span and cancel button on extra small screens */
+    
+    @media screen and (max-width: 300px) {
+        span.psw {
+            display: block;
+            float: none;
+        }
+    }
+</style>
+{% extends 'main-layout.html' %} {% block title %} Edit Profile {% endblock title %}
+
+<!--main content-->
+{% block content %}
+<div class="row">
+    <div class="col-md-9">
+
+        <h2>My Account Settings</h2>
+        {% for m in messages %}
+        <div id="alert-msg" class="alert alert-primary alert-dismissible fade show" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                <span class="sr-only">Close</span>
+            </button>
+            <strong>{{m}}</strong>
+        </div>
+        {% endfor %}
+        <!--Account input fields-->
+        <form action="{% url 'edit/profile' %}" enctype="multipart/form-data" method="post">
+            {% csrf_token %}
+            <div class="container">
+                <label for="uid"><b>User ID</b></label>
+                <input type="text" value="{{user.id}}" name="uid" readonly>
+                <label for="uname"><b>User Name</b></label>
+                <input type="text" value="{{user.username}}" name="uname" readonly>
+                <label for="fname"><b>First Name</b></label>
+                <input type="text" value="{{user.first_name}}" placeholder="{{user.first_name}}" name="fname" required>
+                <label for="lname"><b>Last Name</b></label>
+                <input type="text" value="{{user.last_name}}" name="lname" required>
+                <label for="psw"><b>Current Password</b></label>
+                <input type="password" placeholder="Enter Password" name="currentPass" required>
+                <label for="psw"><b>New Password</b></label>
+                <input type="password" placeholder="Enter Password" name="newPass" required>
+                <label for="profPic"><b>Profile Picture</b></label> <br>
+                <input type="file" name="profPic" accept="image/*">
+                <br><br>
+                <button class="button_save_changes" type="submit">Save Changes</button>
+            </div>
+        </form>
+        <!------------------------->
+
+    </div>
+</div>
+{% endblock content %}

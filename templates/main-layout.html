@@ -22,9 +22,10 @@
     <div class="wrapper d-flex align-items-stretch">
         <nav id="sidebar">
             <div class="p-4 pt-5">
-                <a href="#" class="img logo rounded-circle mb-3" style="background-image: url(https://www.pavilionweb.com/wp-content/uploads/2017/03/man-300x300.png); border: 1px solid black">
+                <img class="img logo img-responsive img-circle mb-3" src="{{user.profile.img}}" style="border: 1px solid black;display: block;object-fit:cover;
+                object-position:50% 50%;">
                 </a>
-                <p style="text-align:center">Jumshaid Khan</p>
+                <p style="text-align:center">{{user.first_name}} {{user.last_name}}</p>
 
                 <ul class="list-unstyled components mb-5">
                     <li class="active">
@@ -35,10 +36,7 @@
                         <a href="{% url 'exams' %}"> <i class="fa fa-clone" aria-hidden="true"></i> &nbsp; Exams</a>
                     </li>
                     <li>
-                        <a href="#"> <i class="fa fa-thumb-tack" aria-hidden="true"></i> &nbsp;&nbsp; Attendance</a>
-                    </li>
-                    <li>
-                        <a href="#"> <i class="fa fa-user-circle-o" aria-hidden="true"></i> &nbsp; Manage Profile</a>
+                        <a href="{% url 'edit/profile' %}"> <i class="fa fa-user-circle-o" aria-hidden="true"></i> &nbsp; Manage Profile</a>
                     </li>
                     <li>
                         <a href="#"> <i class="fa fa-handshake-o" aria-hidden="true"></i> &nbsp;Project Credits</a>
@@ -59,7 +57,7 @@
 
                 <button type="button" id="sidebarCollapse" class="btn btn-primary" style="color: #fff; background: #ff834f;">
               <i class="fa fa-bars"></i>
-            </button> <b>EduPhile - Advanced Online Classroom</b>
+            </button> <b>EduPhile - AI Based Examination System</b>
             </nav>
 
             {% block content %}
