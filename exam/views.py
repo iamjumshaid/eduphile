@@ -26,3 +26,6 @@ def view_exam(request, exam_id = 0):
             context.append(row) 
     del context[0]
     return render(request, 'teacher_exam_view.html', {'exam':exam,'results':context})
+
+def create_exam(request):
+    return render(request, 'teacher_schedule_exam.html')
