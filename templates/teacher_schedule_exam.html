@@ -29,67 +29,70 @@
 </a>
 
 <!--header for schedule exam settings-->
-<h2>Create Exam</h2>
-<hr>
-<p class="text-center" style="color: black;"><b><u>Exam Settings</u></b></p>
-<div class="row">
-    <div class="col-md-6">
-        <b>Exam Name</b>: <input id="examName" name="examName" type="text" placeholder="Enter exam name" required>
-    </div>
-    <div class="col-md-6">
-        <b>Select Class</b>:
-        <select class="classSelect" name="selectedClass" id="selectedClass" required>
-            <option value="OOP">OOP</option>
-            <option value="ISE">ITSE</option>
+
+<form action="{% url 'create/exam' %}" method="POST">
+    {% csrf_token %}
+    <h2>Create Exam</h2>
+    <hr>
+    <p class="text-center" style="color: black;"><b><u>Exam Settings</u></b></p>
+    <div class="row">
+        <div class="col-md-6">
+            <b>Exam Name</b>: <input id="examName" name="examName" type="text" placeholder="Enter exam name" required>
+        </div>
+        <div class="col-md-6">
+            <b>Select Class</b>:
+            <select class="classSelect" name="classId" id="selectedClass" required>
+            {% for c in cls %}
+            <option value="{{c.id}}">{{c.cls_name}}</option>
+            {% endfor %}
         </select>
+        </div>
+        <br><br>
+        <div class="col-md-6">
+            <b>Start Date</b>: <input required type="datetime-local" name="startTime" id="startTime" style="margin-left:15px">
+        </div>
+        <div class="col-md-6">
+            <b>End Date</b>: <input required type="datetime-local" name="endTime" id="endTime" style="margin-left:25px">
+        </div>
     </div>
-    <br><br>
-    <div class="col-md-6">
-        <b>Start Date</b>: <input required type="datetime-local" name="startTime" id="startTime" style="margin-left:15px">
-    </div>
-    <div class="col-md-6">
-        <b>End Date</b>: <input required type="datetime-local" name="endTime" id="endTime" style="margin-left:25px">
-    </div>
-</div>
-<hr>
-<!--end of header schedule exam settings-->
+    <hr>
+    <!--end of header schedule exam settings-->
 
-<!--adding questions for exam-->
-<p class="text-center" style="color: black;"><b><u>Exam Questions</u></b></p>
+    <!--adding questions for exam-->
+    <p class="text-center" style="color: black;"><b><u>Exam Questions</u></b></p>
 
-<!--question-->
-<div class="jumbotron questDiv1">
-    <label class="text-bold" for="question"><strong>Question 1:</strong></label>
-    <input id="question" type="textarea" name="question[]" class="form-control" placeholder="Enter question here" required>
+    <!--question-->
+    <div class="jumbotron questDiv1">
+        <label class="text-bold" for="question"><strong>Question 1:</strong></label>
+        <input id="question" type="textarea" name="questions[]" class="form-control" placeholder="Enter question here" required>
+        <br>
 
-    <br>
+        <label class="text-bold" for="correctAnswer"><strong>Correct Answer:</strong></label>
+        <input id="correctAnswer" type="textarea" name="correctAnswers[]" class="form-control" placeholder="Enter question here" required>
+        <br>
 
-    <label class="text-bold" for="correctAnswer"><strong>Correct Answer:</strong></label>
-    <input id="correctAnswer" type="textarea" name="correctAnswer[]" class="form-control" placeholder="Enter question here" required>
-    <br>
+        <label class="text-bold" for="questionMarks"><strong>Question Marks:</strong></label>
+        <input id="questionMarks" type="textarea" name="questionsMarks[]" class="form-control" placeholder="Enter question here" required>
+        <br>
 
-    <label class="text-bold" for="questionMarks"><strong>Question Marks:</strong></label>
-    <input id="questionMarks" type="textarea" name="questionMarks[]" class="form-control" placeholder="Enter question here" required>
-    <br>
-
-    <label class="text-bold" for="selectedClass"><strong>Question Type:</strong></label>
-    <select class="form-control" name="selectedClass[]" id="selectedClass" required onchange="mcqOptions(this.value)">
-        <option value="Descriptive1" selected>Descriptive</option>
-        <option value="MCQs1">MCQs</option>
+        <label class="text-bold" for="selectedClass"><strong>Question Type:</strong></label>
+        <select class="form-control" name="questionsType[]" id="selectedClass" required onchange="mcqOptions(this.value)">
+        <option value="descriptive1" selected>Descriptive</option>
+        <option value="mcqs1">MCQs</option>
     </select>
-    <br>
+        <br>
 
-</div>
+    </div>
 
-<hr>
-<button type="button" class="btn btn-danger" onclick="deleteQuestion()" style="float: right;">Delete question</button>
-<button type="button" onclick="addQuestion()" class="btn btn-primary" style="color: #fff; background: #ff834f">
+    <hr>
+    <button type="button" class="btn btn-danger" onclick="deleteQuestion()" style="float: right;">Delete question</button>
+    <button type="button" onclick="addQuestion()" class="btn btn-primary" style="color: #fff; background: #ff834f">
     Add question
 </button>
-<button type="submit" class="btn btn-success">Create Exam</button>
-<!--Ending adding questions for exams-->
+    <button type="submit" class="btn btn-success">Create Exam</button>
+    <!--Ending adding questions for exams-->
 
-
+</form>
 
 {% endblock content %} {% block script_files %}
 
@@ -101,12 +104,12 @@
     function mcqOptions(questType) {
         var currentQuestion = questType.match(/\d+$/)[0];
 
-        if (questType == 'MCQs' + currentQuestion + '') {
+        if (questType == 'mcqs' + currentQuestion + '') {
             $(".questDiv" + currentQuestion + "").append("<ol id='mcqOption" + currentQuestion + "'>" +
                 "<li style='padding:5px'><div class='input-group'> " +
-                "<input type='text' name='options" + currentQuestion + "[]' placeholder='Enter option here' style='width:20%'> &nbsp;" +
+                "<input type='text' name='optionsQ" + currentQuestion + "[]' placeholder='Enter option here' style='width:20%'> &nbsp;" +
                 "<span class='input-group-btn'>" +
-                "<button type='button' class='btn btn-info addOption' name='addOption' id='addOption' onclick='addOption(" + currentQuestion + ")'><i class='fa fa-plus' aria-hidden='true'></i></button>" +
+                "<button type='button' class='btn btn-info addOption' name='addOption' id='addOption' onclick='addOptions(" + currentQuestion + ")'><i class='fa fa-plus' aria-hidden='true'></i></button>" +
                 "</span>" +
                 "</div>" +
                 "</li></ol> ");
@@ -117,19 +120,19 @@
     }
 
 
-    function addOption(currentQ) {
+    function addOptions(currentQ) {
         $("#mcqOption" + currentQ + "").append("" +
             "<li style='padding:5px'><div class='input-group'> " +
-            "<input type='text' name='options" + currentQ + "[]' placeholder='Enter option here' style='width:20%'> &nbsp;" +
+            "<input type='text' name='optionsQ" + currentQ + "[]' placeholder='Enter option here' style='width:20%'> &nbsp;" +
             "<span class='input-group-btn'>" +
-            "<button type='button' class='btn btn-danger removeOption' name='removeOption' id='removeOption" + i + " ' onclick='removeOption(this)'><i class='fa fa-remove' aria-hidden='true'></i></button>" +
+            "<button type='button' class='btn btn-danger removeOption' name='removeOption' id='removeOption" + i + " ' onclick='removeOptions(this)'><i class='fa fa-remove' aria-hidden='true'></i></button>" +
             "</span>" +
             "</div>" +
             "</li></ol> ");
         i++;
     }
 
-    function removeOption(btn) {
+    function removeOptions(btn) {
         btn.parentNode.parentNode.parentNode.remove()
     }
 
@@ -138,22 +141,22 @@
             $(".questDiv1").after('<hr class="line' + (qNumber + 1) + '">' +
                 '<div class="jumbotron questDiv' + (qNumber + 1) + '">' +
                 '<label class="text-bold" for="question"><strong>Question ' + (qNumber + 1) + ':</strong></label>' +
-                '<input id="question" type="textarea" name="question[]" class="form-control" placeholder="Enter question here" required>' +
+                '<input id="question" type="textarea" name="questions[]" class="form-control" placeholder="Enter question here" required>' +
 
                 '<br>' +
 
                 '<label class="text-bold" for="correctAnswer"><strong>Correct Answer:</strong></label>' +
-                '<input id="correctAnswer" type="textarea" name="correctAnswer[]" class="form-control" placeholder="Enter question here" required>' +
+                '<input id="correctAnswer" type="textarea" name="correctAnswers[]" class="form-control" placeholder="Enter question here" required>' +
                 '<br>' +
 
                 '<label class="text-bold" for="questionMarks"><strong>Question Marks:</strong></label>' +
-                '<input id="questionMarks" type="textarea" name="questionMarks[]" class="form-control" placeholder="Enter question here" required>' +
+                '<input id="questionMarks" type="textarea" name="questionsMarks[]" class="form-control" placeholder="Enter question here" required>' +
                 '<br>' +
 
                 '<label class="text-bold" for="selectedClass"><strong>Question Type:</strong></label>' +
-                '<select class="form-control" name="selectedClass[]" id="selectedClass" required onchange="mcqOptions(this.value)">' +
-                '    <option value="Descriptive' + (qNumber + 1) + '" selected>Descriptive</option>' +
-                '    <option value="MCQs' + (qNumber + 1) + '">MCQs</option>' +
+                '<select class="form-control" name="questionsType[]" id="selectedClass" required onchange="mcqOptions(this.value)">' +
+                '    <option value="descriptive' + (qNumber + 1) + '" selected>Descriptive</option>' +
+                '    <option value="mcqs' + (qNumber + 1) + '">MCQs</option>' +
                 '</select>' +
                 '<br>' +
 
@@ -163,22 +166,22 @@
             $(".questDiv" + qNumber + "").after('<hr class="line' + (qNumber + 1) + '">' +
                 '<div class="jumbotron questDiv' + (qNumber + 1) + '">' +
                 '<label class="text-bold" for="question"><strong>Question ' + (qNumber + 1) + ':</strong></label>' +
-                '<input id="question" type="textarea" name="question[]" class="form-control" placeholder="Enter question here" required>' +
+                '<input id="question" type="textarea" name="questions[]" class="form-control" placeholder="Enter question here" required>' +
 
                 '<br>' +
 
                 '<label class="text-bold" for="correctAnswer"><strong>Correct Answer:</strong></label>' +
-                '<input id="correctAnswer" type="textarea" name="correctAnswer[]" class="form-control" placeholder="Enter question here" required>' +
+                '<input id="correctAnswer" type="textarea" name="correctAnswers[]" class="form-control" placeholder="Enter question here" required>' +
                 '<br>' +
 
                 '<label class="text-bold" for="questionMarks"><strong>Question Marks:</strong></label>' +
-                '<input id="questionMarks" type="textarea" name="questionMarks[]" class="form-control" placeholder="Enter question here" required>' +
+                '<input id="questionMarks" type="textarea" name="questionsMarks[]" class="form-control" placeholder="Enter question here" required>' +
                 '<br>' +
 
                 '<label class="text-bold" for="selectedClass"><strong>Question Type:</strong></label>' +
-                '<select class="form-control" name="selectedClass[]" id="selectedClass" required onchange="mcqOptions(this.value)">' +
-                '    <option value="Descriptive' + (qNumber + 1) + '" selected>Descriptive</option>' +
-                '    <option value="MCQs' + (qNumber + 1) + '">MCQs</option>' +
+                '<select class="form-control" name="questionsType[]" id="selectedClass" required onchange="mcqOptions(this.value)">' +
+                '    <option value="descriptive' + (qNumber + 1) + '" selected>Descriptive</option>' +
+                '    <option value="mcqs' + (qNumber + 1) + '">MCQs</option>' +
                 '</select>' +
                 '<br>' +
 
