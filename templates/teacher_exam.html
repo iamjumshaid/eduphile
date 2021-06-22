@@ -64,13 +64,15 @@
                 </td>
                 <td class="text-center">
                     <span class="table-view">
-                            <a href="/teacher/exams/view/{{exam.id}}/">
-                                <i class="fa fa-1.5x fa-external-link" aria-hidden="true" style="color: #ff834f"></i>
-                            </a>
+                        {% if exam.total_attempts == 0 %} <i class="fa fa-1.5x fa-low-vision" aria-hidden="true" style="color: #ff834f"></i> {% else %}                             <a href="/teacher/exams/view/{{exam.id}}/">
+                            <i class="fa fa-1.5x fa-external-link" aria-hidden="true" style="color: #ff834f"></i>
+                        </a> {% endif %}
+
                         </span>
                 </td>
                 <td>
-                    Completed
+
+                    {% if exam.total_attempts == 0 %} In Progress {% else %} Completed {% endif %}
                 </td>
                 <td class="text-center">
                     <span class="table-view">

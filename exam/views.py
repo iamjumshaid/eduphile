@@ -32,13 +32,12 @@ def view_exam(request, exam_id = 0):
 
 def create_exam(request):
     if request.method == 'POST':
-        # Exam Table Data
         exam_name = request.POST['examName']
         class_id = request.POST['classId']
         start_time = request.POST['startTime']
         end_time = request.POST['endTime']
-        #exam_data = [exam_name, class_id, start_time, end_time]
-
+        class_name = Classroom.objects.filter(id = class_id).values_list('cls_name', flat=True)[0]
+        print(class_name)
         exam = Exam_Details( exam_name = exam_name,
                             class_id = class_id,
                             start_time = start_time,
@@ -46,14 +45,12 @@ def create_exam(request):
         exam.save()
         current_exam_id = exam.id
 
-        # Question Table Data
         questions = request.POST.getlist('questions[]')
         correct_answers = request.POST.getlist('correctAnswers[]')
         questions_marks = request.POST.getlist('questionsMarks[]')
         questions_type = request.POST.getlist('questionsType[]')
         
 
-        # Creating Questions in Database
         q_option = "optionsQ"
         q_type = "mcqs"
         for index, question in enumerate(questions):
@@ -88,6 +85,12 @@ def create_exam(request):
             q_type = 'mcqs'
             q_option = 'optionsQ'
             print('\n')
+
+        exam_created = Exam( cls_name = class_name,
+                            total_std = 3,
+                            total_attempts = 0,
+                            exam_created = start_time)
+        exam_created.save()
 
         # Returning results
         messages.info(request, 'Exam has been created!.')

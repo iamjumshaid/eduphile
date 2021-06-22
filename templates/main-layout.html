@@ -37,7 +37,14 @@
                             <i class="fa fa-id-card-o" aria-hidden="true"></i> &nbsp; Classrooms</a>
                     </li>
                     <li>
+
+                        {% if user.is_staff %}
                         <a href="{% url 'exams' %}"> <i class="fa fa-clone" aria-hidden="true"></i> &nbsp; Exams</a>
+                        {% else %}
+                        <a href="{% url 'exams' %}"> <i class="fa fa-clone" aria-hidden="true"></i> &nbsp; Results</a>
+                        {% endif %}
+
+
                     </li>
                     <li>
                         <a href="{% url 'edit/profile' %}"> <i class="fa fa-user-circle-o" aria-hidden="true"></i> &nbsp; Manage Profile</a>
